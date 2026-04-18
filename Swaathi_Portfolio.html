@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swaathi K — UX Designer & Data Annotation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-dark: #0d1117;
+    --bg-mid: #161c27;
+    --bg-card: #1e2535;
+    --accent: #c8b88a;
+    --accent2: #e8d5a3;
+    --text: #e8e4dc;
+    --muted: #8a90a0;
+    --white: #f5f2ec;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px;
+    background: rgba(13,17,23,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(200,184,138,0.08);
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-size: 0.82rem; letter-spacing: 0.12em;
+    text-transform: uppercase; text-decoration: none;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+  .hero-image-side {
+    background: var(--bg-mid);
+    position: relative; overflow: hidden;
+  }
+  .hero-image-side::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a2130 0%, #0d1117 100%);
+  }
+  .hero-avatar-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 9rem; font-weight: 900;
+    color: rgba(200,184,138,0.07);
+    letter-spacing: -0.04em;
+    user-select: none;
+  }
+  .hero-initials-ring {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-initials-ring svg { width: 340px; height: 340px; }
+  .hero-content {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 60px;
+    background: var(--bg-dark);
+    position: relative;
+  }
+  .hero-content::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+  .hero-label {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-label::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900; line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+  .hero-title span { color: var(--accent); }
+  .hero-rule { width: 60px; height: 2px; background: var(--accent); margin-bottom: 28px; }
+  .hero-desc {
+    font-size: 0.95rem; line-height: 1.75;
+    color: var(--muted); max-width: 420px; margin-bottom: 48px;
+  }
+  .hero-btns { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    padding: 14px 34px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover { background: var(--accent); color: var(--bg-dark); }
+  .page-num {
+    position: absolute; bottom: 32px; right: 40px;
+    font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  section { position: relative; }
+
+  /* ── INTRO ── */
+  #intro {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .intro-content {
+    padding: 100px 70px;
+    background: var(--bg-mid);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    font-weight: 700; color: var(--white);
+    margin-bottom: 18px;
+  }
+  .section-rule { width: 50px; height: 2px; background: var(--accent); margin-bottom: 36px; }
+  .body-text {
+    font-size: 0.9rem; line-height: 1.85;
+    color: var(--muted); margin-bottom: 48px;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .mini-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--accent2);
+    margin-bottom: 14px;
+  }
+  .intro-image-side {
+    background: #111620;
+    position: relative; overflow: hidden;
+  }
+  .intro-image-side img, .section-image {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(1.1);
+    opacity: 0.75;
+  }
+  .arch-bg {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #1a2234 0%, #0d1117 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem; color: rgba(200,184,138,0.04);
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* ── ABOUT ME ── */
+  #about {
+    min-height: 100vh;
+    background: var(--bg-dark);
+  }
+  .about-photos {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+    height: 45vh;
+    overflow: hidden;
+  }
+  .photo-cell {
+    background: var(--bg-mid);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .photo-cell::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(13,17,23,0.6));
+  }
+  .photo-placeholder {
+    font-size: 5rem; color: rgba(200,184,138,0.06);
+    font-family: 'Playfair Display', serif;
+  }
+  .divider { width: 1px; background: rgba(200,184,138,0.12); }
+  .about-bottom {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    padding: 70px;
+    background: var(--bg-mid);
+    gap: 60px;
+  }
+  .about-title-col {}
+  .about-col-head {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px;
+  }
+
+  /* ── MY VISION ── */
+  #vision {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    background: var(--bg-dark);
+  }
+  .vision-photos {
+    display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .vision-content {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 70px;
+    background: var(--bg-dark);
+  }
+  .numbered-item { display: flex; gap: 28px; margin-bottom: 48px; }
+  .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700;
+    color: var(--accent); flex-shrink: 0; line-height: 1;
+    padding-top: 4px;
+  }
+
+  /* ── MY MISSION ── */
+  #mission {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    background: var(--bg-mid);
+  }
+  .mission-content {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 70px;
+  }
+  .mission-photos {
+    display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  /* ── PORTFOLIO ── */
+  #portfolio {
+    padding: 100px 70px;
+    background: var(--bg-dark);
+    text-align: center;
+  }
+  .portfolio-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px; margin-top: 60px; text-align: left;
+  }
+  .portfolio-card {
+    background: var(--bg-card);
+    overflow: hidden;
+    transition: transform 0.35s ease;
+  }
+  .portfolio-card:hover { transform: translateY(-6px); }
+  .portfolio-img {
+    height: 220px; overflow: hidden;
+    background: var(--bg-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; color: rgba(200,184,138,0.08);
+    font-family: 'Playfair Display', serif;
+    position: relative;
+  }
+  .portfolio-img-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent);
+  }
+  .portfolio-card-body { padding: 28px 28px 32px; }
+  .portfolio-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--accent2); margin-bottom: 12px;
+    text-align: center;
+  }
+
+  /* ── CASE STUDY MODAL ── */
+  .cs-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.82);
+    backdrop-filter: blur(6px);
+    overflow-y: auto;
+    padding: 24px 16px 40px;
+  }
+  .cs-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .cs-modal {
+    background: #fff;
+    border-radius: 24px;
+    width: 100%; max-width: 560px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .cs-close {
+    position: absolute; top: 14px; right: 14px; z-index: 10;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #1a1a1a; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.1rem; transition: background 0.2s;
+  }
+  .cs-close:hover { background: #333; }
+  .cs-hero {
+    background: #2a1f14;
+    padding: 48px 32px 36px;
+    color: #fff;
+  }
+  .cs-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #F47C30; margin-bottom: 14px;
+  }
+  .cs-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 900;
+    color: #F47C30; margin-bottom: 6px;
+    line-height: 1;
+  }
+  .cs-tagline {
+    font-size: 1.05rem; color: rgba(255,255,255,0.6);
+    font-style: italic; margin-bottom: 30px;
+  }
+  .cs-meta-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .cs-meta-item {}
+  .cs-meta-label {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); margin-bottom: 4px;
+  }
+  .cs-meta-value {
+    font-size: 0.9rem; color: #fff; font-weight: 500;
+  }
+  .cs-actions {
+    background: #fdf6ef;
+    padding: 24px 32px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .cs-btn {
+    width: 100%; padding: 16px 24px;
+    border-radius: 50px; border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .cs-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .cs-btn-dark { background: #1a1a1a; color: #fff; }
+  .cs-btn-orange { background: #F47C30; color: #fff; }
+  .cs-btn-outline {
+    background: #fff; color: #1a1a1a;
+    border: 1.5px solid rgba(0,0,0,0.12);
+  }
+  .cs-body { padding: 36px 32px; background: #fff; }
+  .cs-section-label {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #F47C30; margin-bottom: 8px;
+  }
+  .cs-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+  .cs-text {
+    font-size: 0.9rem; line-height: 1.75; color: #444;
+    margin-bottom: 16px;
+  }
+  .cs-stats-grid {
+    border: 1.5px solid #f0ece6;
+    border-radius: 16px; overflow: hidden;
+    margin: 24px 0;
+  }
+  .cs-stat {
+    padding: 22px 24px; text-align: center;
+    border-bottom: 1.5px solid #f0ece6;
+  }
+  .cs-stat:last-child { border-bottom: none; }
+  .cs-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; color: #F47C30;
+    margin-bottom: 4px;
+  }
+  .cs-stat-desc { font-size: 0.82rem; color: #888; }
+  .cs-divider { height: 1px; background: #f0ece6; margin: 32px 0; }
+  .cs-problem-box {
+    background: #fff5f5; border: 1.5px solid #ffd5d5;
+    border-radius: 16px; padding: 24px; margin-bottom: 16px;
+  }
+  .cs-problem-title {
+    color: #c0392b; font-weight: 700; font-size: 0.95rem;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .cs-solution-box {
+    background: #f0faf4; border: 1.5px solid #b2dfc0;
+    border-radius: 16px; padding: 24px; margin-bottom: 16px;
+  }
+  .cs-solution-title {
+    color: #1e7e3e; font-weight: 700; font-size: 0.95rem;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .cs-list {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .cs-list li {
+    font-size: 0.88rem; color: #444; line-height: 1.6;
+    padding: 4px 0; display: flex; gap: 8px;
+  }
+  .cs-list li::before { content: '•'; color: #F47C30; flex-shrink: 0; }
+  .cs-process-scroll {
+    display: flex; gap: 12px; overflow-x: auto;
+    padding-bottom: 8px; margin: 20px 0;
+    scrollbar-width: none;
+  }
+  .cs-process-scroll::-webkit-scrollbar { display: none; }
+  .cs-process-step {
+    flex-shrink: 0; width: 130px;
+    background: #fdf6ef; border-radius: 14px;
+    padding: 18px 14px; text-align: center;
+  }
+  .cs-step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: #F47C30; font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .cs-step-name {
+    font-size: 0.82rem; font-weight: 700; color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .cs-step-desc { font-size: 0.72rem; color: #888; line-height: 1.4; }
+  .cs-screens-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin: 20px 0;
+  }
+  .cs-screen-card {
+    background: #fdf6ef; border-radius: 12px;
+    padding: 16px 10px; text-align: center;
+    border: 1.5px solid #f0ece6;
+  }
+  .cs-screen-icon { font-size: 1.6rem; margin-bottom: 6px; }
+  .cs-screen-num { font-size: 0.65rem; color: #aaa; margin-bottom: 2px; }
+  .cs-screen-name { font-size: 0.75rem; font-weight: 600; color: #333; }
+  .cs-feature-card {
+    background: #fdf6ef; border-radius: 14px;
+    padding: 18px 20px; margin-bottom: 12px;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .cs-feature-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .cs-feature-name { font-size: 0.88rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .cs-feature-desc { font-size: 0.82rem; color: #666; line-height: 1.5; }
+  .cs-decision-card {
+    border-left: 4px solid #F47C30;
+    background: #fdf6ef; border-radius: 0 14px 14px 0;
+    padding: 18px 20px; margin-bottom: 14px;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .cs-learning-card {
+    border-left: 4px solid #F47C30;
+    background: #fdf6ef; border-radius: 0 14px 14px 0;
+    padding: 18px 20px; margin-bottom: 14px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .cs-learning-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: #F47C30; font-weight: 700; flex-shrink: 0;
+  }
+  .cs-cta-box {
+    background: #fdf6ef; border-radius: 20px;
+    padding: 32px 24px; text-align: center; margin-top: 32px;
+  }
+  .cs-cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  .cs-cta-desc { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
+  .cs-cta-btns { display: flex; flex-direction: column; gap: 12px; }
+
+  /* ── TEAM / SKILLS ── */
+  #skills {
+    padding: 100px 70px;
+    background: var(--bg-mid);
+    text-align: center;
+  }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; margin-top: 60px;
+  }
+  .skill-card {
+    background: var(--bg-card);
+    padding: 36px 24px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .skill-card:hover { transform: translateY(-4px); }
+  .skill-icon { font-size: 2.2rem; margin-bottom: 16px; }
+  .skill-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; color: var(--accent2);
+    margin-bottom: 12px;
+  }
+  .skill-list { font-size: 0.8rem; color: var(--muted); line-height: 1.9; }
+
+  /* ── EXPERIENCE STRIP ── */
+  #experience {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 60vh;
+    background: var(--bg-dark);
+    overflow: hidden;
+  }
+  .exp-image {
+    background: var(--bg-mid);
+    position: relative; display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .exp-content {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 70px;
+  }
+  .exp-item {
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(200,184,138,0.1);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; color: var(--accent2);
+    margin-bottom: 4px;
+  }
+  .exp-meta { font-size: 0.78rem; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.06em; }
+
+  /* ── CONTACT ── */
+  #contact {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--bg-dark);
+  }
+  .contact-image {
+    background: var(--bg-mid);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-content {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 70px;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 22px; font-size: 0.88rem; color: var(--muted);
+  }
+  .contact-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    border: 1px solid var(--accent); flex-shrink: 0;
+  }
+
+  /* ── THANK YOU ── */
+  #thankyou {
+    min-height: 80vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--bg-mid);
+  }
+  .ty-content {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 70px;
+  }
+  .ty-image {
+    background: var(--bg-dark);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── GEOMETRY DECORATIONS ── */
+  .geo-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(200,184,138,0.06);
+    pointer-events: none;
+  }
+
+  /* ── FADE-IN ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.8s ease forwards; }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #home, #intro, #about-bottom, #vision, #mission, #experience, #contact, #thankyou {
+      grid-template-columns: 1fr !important;
+    }
+    nav { padding: 18px 24px; }
+    .nav-links { gap: 20px; }
+    .hero-content, .intro-content, .vision-content, .mission-content, .exp-content, .contact-content, .ty-content { padding: 60px 32px; }
+    .hero-image-side { min-height: 40vh; }
+    .about-photos { grid-template-columns: 1fr; height: auto; }
+    .portfolio-grid, .skills-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    #portfolio, #skills { padding: 70px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Swaathi.K</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+
+
+<!-- PAGE 01 – HERO -->
+<section id="home">
+  <div class="hero-image-side">
+    <div class="hero-avatar-placeholder">SK</div>
+    <div class="hero-initials-ring">
+      <svg viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="170" cy="170" r="158" stroke="rgba(200,184,138,0.12)" stroke-width="1"/>
+        <circle cx="170" cy="170" r="130" stroke="rgba(200,184,138,0.06)" stroke-width="1" stroke-dasharray="4 8"/>
+        <circle cx="170" cy="170" r="90" stroke="rgba(200,184,138,0.08)" stroke-width="1"/>
+        <text x="170" y="195" font-family="Playfair Display, serif" font-size="72" font-weight="900"
+              fill="rgba(200,184,138,0.18)" text-anchor="middle">SK</text>
+      </svg>
+    </div>
+    <!-- Geo decorations -->
+    <div class="geo-circle" style="width:500px;height:500px;top:-100px;left:-100px;"></div>
+    <div class="geo-circle" style="width:300px;height:300px;bottom:40px;right:40px;border-color:rgba(200,184,138,0.04)"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-label fade-up">UX Designer &amp; Data Annotation</div>
+    <h1 class="hero-title fade-up delay-1">My<br><span>Portfolio</span></h1>
+    <div class="hero-rule fade-up delay-2"></div>
+    <p class="hero-desc fade-up delay-2">
+      Detail-oriented UX Designer with a background in data annotation and AI model training.
+      Bridging user research, data insights, and intuitive design to create meaningful digital experiences.
+    </p>
+    <div class="hero-btns fade-up delay-3">
+      <a href="#portfolio" class="btn-primary">Explore Now</a>
+
+<a href="https://docs.google.com/document/d/101ugZL8RL2wmrpzRNZ-IvFru78dUJStP/edit?usp=sharing&ouid=111062695820264588870&rtpof=true&sd=true" target="_blank" class="btn-primary" style="display:flex;align-items:center;gap:8px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        View Resume
+      </a>
+
+    </div>
+    <div class="page-num">Page | 01</div>
+  </div>
+</section>
+
+<!-- PAGE 02 – INTRODUCTION -->
+<section id="intro">
+  <div class="intro-content">
+    <h2 class="section-heading">Introduction</h2>
+    <div class="section-rule"></div>
+    <p class="body-text">
+      I'm Swaathi K — a UX Designer and former Senior Data Associate at About, combining
+      3+ years of data expertise with a passion for user-centered design. Certified in Google UX Design,
+      I specialize in turning complex problems into intuitive, beautiful digital experiences.
+      My background in NLP and data quality brings a unique analytical lens to every design decision.
+    </p>
+    <div class="two-col">
+      <div>
+        <div class="mini-heading">About Me</div>
+        <p class="body-text" style="margin-bottom:0">
+          Chennai-based UX designer with a foundation in high-impact data work. 
+At Amazon, mentored 10+ team members and earned 6× Extra Mile Awards for driving process quality and clarity.
+ Now crafting user experiences that balance insight, usability, and visual elegance.
+        </p>
+      </div>
+      <div>
+        <div class="mini-heading">About Portfolio</div>
+        <p class="body-text" style="margin-bottom:0">
+          This portfolio presents UX case studies spanning ideation, user research, wireframing, and high-fidelity Figma prototypes, with a focus on simplicity and measurable user outcomes.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="intro-image-side">
+    <div class="arch-bg">
+      <svg width="100%" height="100%" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <!-- Architectural lines illustration -->
+        <line x1="0" y1="700" x2="600" y2="0" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+        <line x1="100" y1="700" x2="700" y2="0" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+        <line x1="200" y1="700" x2="800" y2="0" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+        <rect x="150" y="100" width="300" height="500" stroke="rgba(200,184,138,0.06)" stroke-width="1" fill="none"/>
+        <rect x="180" y="130" width="240" height="400" stroke="rgba(200,184,138,0.04)" stroke-width="1" fill="none"/>
+        <!-- Ceiling lights suggestion -->
+        <line x1="150" y1="100" x2="450" y2="100" stroke="rgba(200,184,138,0.08)" stroke-width="2"/>
+        <circle cx="200" cy="100" r="4" fill="rgba(200,184,138,0.15)"/>
+        <circle cx="250" cy="100" r="4" fill="rgba(200,184,138,0.15)"/>
+        <circle cx="300" cy="100" r="6" fill="rgba(200,184,138,0.25)"/>
+        <circle cx="350" cy="100" r="4" fill="rgba(200,184,138,0.15)"/>
+        <circle cx="400" cy="100" r="4" fill="rgba(200,184,138,0.15)"/>
+        <!-- Perspective floor lines -->
+        <line x1="300" y1="100" x2="150" y2="600" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+        <line x1="300" y1="100" x2="450" y2="600" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+        <line x1="300" y1="100" x2="80" y2="600" stroke="rgba(200,184,138,0.03)" stroke-width="1"/>
+        <line x1="300" y1="100" x2="520" y2="600" stroke="rgba(200,184,138,0.03)" stroke-width="1"/>
+        <!-- Arched windows left -->
+        <rect x="155" y="150" width="60" height="120" rx="30" stroke="rgba(200,184,138,0.07)" stroke-width="1" fill="none"/>
+        <rect x="155" y="290" width="60" height="120" rx="30" stroke="rgba(200,184,138,0.07)" stroke-width="1" fill="none"/>
+        <rect x="155" y="430" width="60" height="120" rx="30" stroke="rgba(200,184,138,0.07)" stroke-width="1" fill="none"/>
+        <!-- Arched windows right -->
+        <rect x="385" y="150" width="60" height="120" rx="30" stroke="rgba(200,184,138,0.07)" stroke-width="1" fill="none"/>
+        <rect x="385" y="290" width="60" height="120" rx="30" stroke="rgba(200,184,138,0.07)" stroke-width="1" fill="none"/>
+        <rect x="385" y="430" width="60" height="120" rx="30" stroke="rgba(200,184,138,0.07)" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+  </div>
+  <div class="page-num" style="position:absolute;bottom:32px;right:40px;">Page | 02</div>
+</section>
+
+
+
+<!-- PAGE 03 – PORTFOLIO -->
+<section id="portfolio">
+  <h2 class="section-heading" style="text-align:center">My Project Portfolio</h2>
+  <div class="section-rule" style="margin:18px auto 0"></div>
+  <div class="portfolio-grid">
+    <div class="portfolio-card">
+      <div class="portfolio-img">
+        <svg width="100%" height="220" viewBox="0 0 480 220" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+          <rect fill="#1a2234" width="480" height="220"/>
+          <!-- Mountain silhouette 1 -->
+          <polygon points="0,220 120,60 240,120 360,40 480,100 480,220" fill="rgba(200,184,138,0.04)" stroke="rgba(200,184,138,0.12)" stroke-width="1.5"/>
+          <polygon points="0,220 80,100 180,140 300,60 420,110 480,80 480,220" fill="rgba(200,184,138,0.02)" stroke="rgba(200,184,138,0.06)" stroke-width="1"/>
+          <text x="240" y="120" font-family="Playfair Display, serif" font-size="48" font-weight="900" fill="rgba(200,184,138,0.08)" text-anchor="middle">QB</text>
+          <!-- Phone wireframe -->
+          <rect x="190" y="20" width="100" height="180" rx="10" stroke="rgba(200,184,138,0.15)" stroke-width="1.5" fill="rgba(0,0,0,0.2)"/>
+          <rect x="197" y="32" width="86" height="130" stroke="rgba(200,184,138,0.08)" stroke-width="1" fill="none"/>
+          <line x1="215" y1="50" x2="265" y2="50" stroke="rgba(200,184,138,0.15)" stroke-width="2"/>
+          <line x1="210" y1="65" x2="270" y2="65" stroke="rgba(200,184,138,0.08)" stroke-width="1"/>
+          <line x1="210" y1="78" x2="250" y2="78" stroke="rgba(200,184,138,0.08)" stroke-width="1"/>
+          <rect x="215" y="90" width="50" height="30" rx="4" stroke="rgba(200,184,138,0.1)" stroke-width="1" fill="rgba(200,184,138,0.04)"/>
+          <line x1="213" y1="135" x2="267" y2="135" stroke="rgba(200,184,138,0.06)" stroke-width="1"/>
+          <line x1="213" y1="148" x2="267" y2="148" stroke="rgba(200,184,138,0.06)" stroke-width="1"/>
+        </svg>
+        <div class="portfolio-img-bar"></div>
+      </div>
+      <div class="portfolio-card-body">
+        <div class="portfolio-card-title">Portfolio 01 — QuickBite App</div>
+        <p class="body-text" style="margin:0 0 20px;font-size:0.83rem">
+          A mobile UX case study for quick snack ordering during peak evening hours (4–7 PM).
+          Designed a 2-click ordering flow, resolving decision fatigue through targeted user research,
+          journey mapping, and high-fidelity Figma prototypes.
+        </p>
+        <button onclick="document.getElementById('qbModal').classList.add('open')" style="background:#F47C30;color:#fff;border:none;padding:11px 26px;font-family:'DM Sans',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">View Case Study →</button>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <div class="portfolio-img">
+        <svg width="100%" height="220" viewBox="0 0 480 220" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+          <rect fill="#151c28" width="480" height="220"/>
+          <!-- Road perspective -->
+          <polygon points="240,10 160,220 320,220" fill="rgba(200,184,138,0.04)" stroke="rgba(200,184,138,0.1)" stroke-width="1.5"/>
+          <line x1="240" y1="10" x2="240" y2="220" stroke="rgba(200,184,138,0.06)" stroke-width="1" stroke-dasharray="8 12"/>
+          <line x1="0" y1="180" x2="480" y2="180" stroke="rgba(200,184,138,0.08)" stroke-width="1"/>
+          <line x1="0" y1="160" x2="480" y2="160" stroke="rgba(200,184,138,0.05)" stroke-width="1"/>
+          <!-- Mountains far -->
+          <polygon points="0,180 100,100 200,140 300,80 400,120 480,90 480,180" fill="rgba(200,184,138,0.03)" stroke="rgba(200,184,138,0.07)" stroke-width="1"/>
+          <!-- Baby icon abstraction -->
+          <circle cx="240" cy="80" r="30" stroke="rgba(200,184,138,0.15)" stroke-width="1.5" fill="rgba(200,184,138,0.03)"/>
+          <circle cx="240" cy="80" r="18" stroke="rgba(200,184,138,0.08)" stroke-width="1" fill="none"/>
+          <circle cx="232" cy="76" r="3" fill="rgba(200,184,138,0.2)"/>
+          <circle cx="248" cy="76" r="3" fill="rgba(200,184,138,0.2)"/>
+          <path d="M 232 88 Q 240 95 248 88" stroke="rgba(200,184,138,0.2)" stroke-width="1.5" fill="none"/>
+        </svg>
+        <div class="portfolio-img-bar"></div>
+      </div>
+
+      <div class="portfolio-card-body">
+        <div class="portfolio-card-title">Portfolio 02 — Baby Care App</div>
+        <p class="body-text" style="margin:0;font-size:0.83rem">
+          A parenting companion app for tracking feeding schedules, sleep patterns, and vaccination
+          reminders. Focused on emotional user needs through empathetic research, resulting in
+          a clean, accessible, and stress-reducing interface for new parents.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="page-num" style="position:relative;text-align:right;margin-top:40px;">Page | 03</div>
+</section>
+
+<!-- PAGE 04 – SKILLS -->
+<section id="skills">
+  <h2 class="section-heading" style="text-align:center">Meet My Skills</h2>
+  <div class="section-rule" style="margin:18px auto 0"></div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-name">UX & Design</div>
+      <div class="skill-list">Wireframing & Prototyping<br>User Research & Personas<br>User Journey Mapping<br>Usability Testing<br>Interaction Design<br>Figma</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Data & Annotation</div>
+      <div class="skill-list">Data Annotation<br>Text Labeling<br>NLP Dataset Handling<br>Quality Audits<br>Data Validation<br>Insights Generation</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <div class="skill-name">Tools & Tech</div>
+      <div class="skill-list">Figma<br>SQL<br>HTML & CSS<br>Google Workspace<br>Data Analysis<br>Process Optimization</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💡</div>
+      <div class="skill-name">Core Strengths</div>
+      <div class="skill-list">Team Leadership<br>Process Optimization<br>Analytical Thinking<br>Problem Solving<br>Data-Driven Decisions</div>
+    </div>
+  </div>
+  <div class="page-num" style="position:relative;text-align:right;margin-top:40px;">Page | 04</div>
+</section>
+
+<!-- PAGE 05 – EXPERIENCE -->
+<section id="experience">
+  <div class="exp-image">
+    <svg width="100%" height="100%" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <rect fill="#121820" width="600" height="600"/>
+      <!-- Staircase perspective -->
+      <line x1="0" y1="600" x2="600" y2="0" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <polygon points="100,600 100,300 300,100 500,100 500,300 300,500" stroke="rgba(200,184,138,0.08)" stroke-width="1.5" fill="none"/>
+      <!-- Stairs -->
+      <line x1="100" y1="400" x2="300" y2="400" stroke="rgba(200,184,138,0.12)" stroke-width="2"/>
+      <line x1="300" y1="400" x2="300" y2="300" stroke="rgba(200,184,138,0.12)" stroke-width="2"/>
+      <line x1="300" y1="300" x2="450" y2="300" stroke="rgba(200,184,138,0.1)" stroke-width="1.5"/>
+      <line x1="450" y1="300" x2="450" y2="200" stroke="rgba(200,184,138,0.1)" stroke-width="1.5"/>
+      <line x1="450" y1="200" x2="560" y2="200" stroke="rgba(200,184,138,0.08)" stroke-width="1"/>
+      <!-- Railing -->
+      <line x1="80" y1="390" x2="600" y2="180" stroke="rgba(200,184,138,0.06)" stroke-width="1"/>
+      <!-- Tree silhouette top right -->
+      <circle cx="500" cy="120" r="60" stroke="rgba(200,184,138,0.06)" stroke-width="1" fill="none"/>
+      <line x1="500" y1="180" x2="500" y2="250" stroke="rgba(200,184,138,0.08)" stroke-width="2"/>
+      <line x1="480" y1="140" x2="440" y2="100" stroke="rgba(200,184,138,0.05)" stroke-width="1"/>
+      <line x1="520" y1="130" x2="560" y2="90" stroke="rgba(200,184,138,0.05)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="exp-content">
+    <h2 class="section-heading">Experience</h2>
+    <div class="section-rule"></div>
+    <p class="body-text">
+      My professional journey combines data excellence with growing UX expertise — each step
+      building toward crafting experiences that are as data-informed as they are human-centered.
+    </p>
+    <div class="exp-item">
+      <div class="exp-role">Senior Data Associate</div>
+      <div class="exp-meta">Amazon – Alexa Data Services | Feb 2021 – Apr 2024</div>
+      <p class="body-text" style="margin:0;font-size:0.83rem">
+•	Led and mentored a high-performing team of 10+ data associates, delivering 98%+ accuracy on critical NLP annotation projects that directly improved Alexa's speech recognition performance<br>
+•	Established standardized annotation protocols and quality frameworks, reducing error rates by 15% and enabling team scalability for large-scale voice assistant training<br>
+•	Conducted regular quality audits and feedback cycles, improving associate performance and retention through data-driven mentoring and process optimization<br>
+•	Performed expert-level text annotation and labeling across multiple NLP domains: intent classification, entity recognition, content categorization, and semantic understanding<br>
+•	Processed and validated large-scale speech and text datasets (100K+ samples) to train and improve Alexa voice assistant models, ensuring consistency across annotation guidelines<br>
+•	Analyzed complex and ambiguous data scenarios, applying strong analytical judgment to ensure dataset quality and consistency in edge cases and domain-specific contexts<br>
+•	Improved overall data accuracy by 15% through systematic process analysis, root cause identification, and workflow optimization across annotation pipelines<br>
+•	Implemented data validation and audit frameworks that reduced annotation defects by 20%, ensuring product quality for millions of Alexa users<br>
+•	Collaborated cross-functionally with Product, QA, and Engineering teams to enhance workflow efficiency, dataset usability, and model performance metrics<br>
+•	Earned 6× Extra Mile Awards and Star Performer recognition for operational excellence, quality improvements, and team leadership
+
+</p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-role">UX Designer (Transition)</div>
+      <div class="exp-meta">Google UX Design Certificate | Mar 2026</div>
+      <p class="body-text" style="margin:0;font-size:0.83rem">
+     Completed Google's UX Design program.<br>
+     Designed QuickBite and Baby Care apps with full research-to-prototype workflows.
+
+</p>
+    </div>
+  </div>
+  <div class="page-num" style="position:absolute;bottom:32px;right:40px;">Page | 05</div>
+</section>
+
+<!-- PAGE 06 – CONTACT -->
+<section id="contact">
+  <div class="contact-image">
+    <svg width="100%" height="100%" viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <rect fill="#111820" width="600" height="800"/>
+      <!-- Geometric building / contact tower -->
+      <rect x="200" y="50" width="200" height="700" stroke="rgba(200,184,138,0.08)" stroke-width="1.5" fill="rgba(200,184,138,0.015)"/>
+      <!-- Diagonal cuts -->
+      <polygon points="200,50 400,50 400,200 200,400" stroke="rgba(200,184,138,0.12)" stroke-width="1.5" fill="rgba(200,184,138,0.03)"/>
+      <polygon points="200,400 400,200 400,500 200,700" stroke="rgba(200,184,138,0.07)" stroke-width="1" fill="rgba(200,184,138,0.02)"/>
+      <!-- Window grid -->
+      <line x1="250" y1="50" x2="250" y2="750" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="300" y1="50" x2="300" y2="750" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="350" y1="50" x2="350" y2="750" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="200" y1="150" x2="400" y2="150" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="200" y1="250" x2="400" y2="250" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="200" y1="350" x2="400" y2="350" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="200" y1="450" x2="400" y2="450" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="200" y1="550" x2="400" y2="550" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="200" y1="650" x2="400" y2="650" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <!-- Sky backdrop -->
+      <circle cx="100" cy="150" r="80" stroke="rgba(200,184,138,0.04)" stroke-width="1" fill="none"/>
+      <circle cx="100" cy="150" r="50" stroke="rgba(200,184,138,0.03)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <div class="contact-content">
+    <h2 class="section-heading">My Contact</h2>
+    <div class="section-rule"></div>
+    <p class="body-text">
+      Open to UX design roles, collaborations, and freelance projects.
+      Let's build something remarkable together — reach out anytime.
+    </p>
+    <div class="contact-item"><div class="contact-dot"></div>+91 9962476820</div>
+    <div class="contact-item"><div class="contact-dot"></div>linkedin.com/in/swaathi-karthikeyan-21swaa</div>
+    <div class="contact-item"><div class="contact-dot"></div>swaathikarthikeyan@gmail.com</div>
+    <div class="contact-item"><div class="contact-dot"></div>Chennai, India</div>
+  </div>
+  <div class="page-num" style="position:absolute;bottom:32px;right:40px;">Page | 06</div>
+</section>
+
+<!-- PAGE 07 – THANK YOU -->
+<section id="thankyou">
+  <div class="ty-content">
+    <h2 class="section-heading">Thank You</h2>
+    <div class="section-rule"></div>
+    <p class="body-text">
+      Thank you for taking the time to explore my portfolio. Every project here represents
+      hours of user research, iteration, and a deep commitment to making digital experiences
+      genuinely better for people.
+    </p>
+    <p class="body-text" style="margin-bottom:0">
+      I'm Swaathi K — a detail-obsessed UX designer who believes that the best interfaces
+      are the ones that feel invisible. If my work resonates with you, I'd love to connect
+      and build something meaningful together.
+    </p>
+  </div>
+  <div class="ty-image">
+    <svg width="100%" height="100%" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <rect fill="#0d1117" width="600" height="600"/>
+      <!-- Coastal cliff / seascape suggestion -->
+      <polygon points="0,600 0,300 150,200 300,250 450,180 600,220 600,600" fill="rgba(200,184,138,0.04)" stroke="rgba(200,184,138,0.1)" stroke-width="1.5"/>
+      <!-- Water lines -->
+      <line x1="0" y1="400" x2="600" y2="380" stroke="rgba(200,184,138,0.06)" stroke-width="1"/>
+      <line x1="0" y1="430" x2="600" y2="410" stroke="rgba(200,184,138,0.05)" stroke-width="1"/>
+      <line x1="0" y1="460" x2="600" y2="445" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="0" y1="490" x2="600" y2="478" stroke="rgba(200,184,138,0.03)" stroke-width="1"/>
+      <!-- Sky -->
+      <line x1="0" y1="180" x2="600" y2="150" stroke="rgba(200,184,138,0.04)" stroke-width="1"/>
+      <line x1="0" y1="120" x2="600" y2="100" stroke="rgba(200,184,138,0.03)" stroke-width="1"/>
+      <!-- Sun/moon circle -->
+      <circle cx="480" cy="100" r="45" stroke="rgba(200,184,138,0.1)" stroke-width="1" fill="none"/>
+      <circle cx="480" cy="100" r="30" stroke="rgba(200,184,138,0.07)" stroke-width="1" fill="rgba(200,184,138,0.02)"/>
+      <!-- Signature -->
+      <text x="300" y="560" font-family="Playfair Display, serif" font-size="32" font-style="italic" fill="rgba(200,184,138,0.12)" text-anchor="middle">Swaathi K</text>
+    </svg>
+  </div>
+  <div class="page-num" style="position:absolute;bottom:32px;right:40px;">Page | 07</div>
+</section>
+
+<!-- QUICKBITE CASE STUDY MODAL -->
+<div class="cs-overlay" id="qbModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="cs-modal">
+    <button class="cs-close" onclick="document.getElementById('qbModal').classList.remove('open')">✕</button>
+
+    <!-- HERO -->
+    <div class="cs-hero">
+      <div class="cs-label">Case Study · 01</div>
+      <div class="cs-title">QuickBite</div>
+      <div class="cs-tagline">"Little Bites, Big Happiness"</div>
+      <div class="cs-meta-grid">
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Role</div>
+          <div class="cs-meta-value">UX Designer</div>
+        </div>
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Type</div>
+          <div class="cs-meta-value">Mobile App · Food Delivery</div>
+        </div>
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Market</div>
+          <div class="cs-meta-value">India · Chennai</div>
+        </div>
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Tools</div>
+          <div class="cs-meta-value">Figma · Prototyping</div>
+        </div>
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Screens</div>
+          <div class="cs-meta-value">10 Key Screens</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="cs-actions">
+      <a href="https://www.figma.com/proto/unI0TYBQzz9tSszpfoR0zB/Quickbite?node-id=139-496&p=f&t=SI5I4fMsR51DLvyW-1&scaling=scale-down&content-scaling=fixed&page-id=138%3A421" class="cs-btn cs-btn-dark">● &nbsp;View Figma Design</a>
+      <a href="https://swaathik2111.github.io/QuiteBite/" class="cs-btn cs-btn-orange">▶ &nbsp;Interactive Prototype</a>
+      <a href="https://docs.google.com/presentation/d/1ln5X1Nsi-9bDGJN6B3CAxqkdGGZRhTCv/edit?usp=sharing&ouid=111062695820264588870&rtpof=true&sd=true" class="cs-btn cs-btn-outline">📊 &nbsp;View Presentation</a>
+    </div>
+
+    <!-- BODY -->
+    <div class="cs-body">
+
+      <!-- OVERVIEW -->
+      <div class="cs-section-label">Overview</div>
+      <div class="cs-section-title">What is QuickBite?</div>
+      <p class="cs-text">QuickBite is a hyper-local food delivery mobile application designed specifically for the Indian market — targeting street food lovers, office-goers, and college students who crave quick, affordable snacks delivered to their doorstep.</p>
+      <p class="cs-text">The app targets neighbourhood snack outlets, chaat stalls, and local food joints — bridging the gap between local vendors and hungry customers</p>
+
+      <div class="cs-stats-grid">
+        <div class="cs-stat">
+          <div class="cs-stat-num">10</div>
+          <div class="cs-stat-desc">Screen Flows Designed</div>
+        </div>
+        <div class="cs-stat">
+          <div class="cs-stat-num">₹30</div>
+          <div class="cs-stat-desc">Starting Delivery Fee</div>
+        </div>
+        <div class="cs-stat">
+          <div class="cs-stat-num">15–30</div>
+          <div class="cs-stat-desc">Min Delivery Time</div>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- PROBLEM & SOLUTION -->
+      <div class="cs-section-label">Research</div>
+      <div class="cs-section-title">Problem &amp; Solution</div>
+
+      <div class="cs-problem-box">
+        <div class="cs-problem-title">⚠️ The Problem</div>
+        <ul class="cs-list">
+          <li>Big apps like Zomato/Swiggy ignore small local snack vendors</li>
+          <li>High minimum order values exclude affordable snack orders</li>
+          <li>Complex UX puts off users seeking quick bites</li>
+          <li>Local vendors lack digital ordering infrastructure</li>
+        </ul>
+      </div>
+
+      <div class="cs-solution-box">
+        <div class="cs-solution-title">✅ The Solution</div>
+        <ul class="cs-list">
+          <li>Hyper-local focus on street food &amp; chaat restaurants</li>
+          <li>Simple OTP-based login — no lengthy registration</li>
+          <li>Minimal cart + fast checkout optimised for small orders</li>
+          <li>UPI-first payment flow familiar to Indian users</li>
+          <li>Real-time delivery tracking with delivery partner contact</li>
+        </ul>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- DESIGN PROCESS -->
+      <div class="cs-section-label">Process</div>
+      <div class="cs-section-title">Design Process</div>
+      <p class="cs-text">The design followed a user-centered process, starting from understanding the target user — budget-conscious food lovers in Chennai — all the way to a polished, interactive prototype.</p>
+      <div class="cs-process-scroll">
+        <div class="cs-process-step">
+          <div class="cs-step-num">01</div>
+          <div class="cs-step-name">Empathize</div>
+          <div class="cs-step-desc">User interviews &amp; observation</div>
+        </div>
+        <div class="cs-process-step">
+          <div class="cs-step-num">02</div>
+          <div class="cs-step-name">Define</div>
+          <div class="cs-step-desc">Problem framing &amp; personas</div>
+        </div>
+        <div class="cs-process-step">
+          <div class="cs-step-num">03</div>
+          <div class="cs-step-name">Ideate</div>
+          <div class="cs-step-desc">Sketches &amp; wireframes</div>
+        </div>
+        <div class="cs-process-step">
+          <div class="cs-step-num">04</div>
+          <div class="cs-step-name">Prototype</div>
+          <div class="cs-step-desc">Figma high-fidelity screens</div>
+        </div>
+        <div class="cs-process-step">
+          <div class="cs-step-num">05</div>
+          <div class="cs-step-name">Test</div>
+          <div class="cs-step-desc">Usability testing &amp; iteration</div>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- KEY SCREENS -->
+      <div class="cs-section-label">Visual Design</div>
+      <div class="cs-section-title">Key UI Screens</div>
+      <p class="cs-text">All 10 screens cover the complete user journey — from first launch to real-time order tracking.</p>
+      <div class="cs-screens-grid">
+        <div class="cs-screen-card"><div class="cs-screen-icon">🌅</div><div class="cs-screen-num">1.</div><div class="cs-screen-name">Splash Screen</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">🔐</div><div class="cs-screen-num">2.</div><div class="cs-screen-name">Login / OTP</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">👤</div><div class="cs-screen-num">3.</div><div class="cs-screen-name">Profile Setup</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">🏠</div><div class="cs-screen-num">4.</div><div class="cs-screen-name">Home Screen</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">🍽️</div><div class="cs-screen-num">5.</div><div class="cs-screen-name">Restaurant Menu</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">🛒</div><div class="cs-screen-num">6.</div><div class="cs-screen-name">Shopping Cart</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">✅</div><div class="cs-screen-num">7.</div><div class="cs-screen-name">Checkout</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">💳</div><div class="cs-screen-num">8.</div><div class="cs-screen-name">Payment</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">🎉</div><div class="cs-screen-num">9.</div><div class="cs-screen-name">Order Confirmed</div></div>
+        <div class="cs-screen-card"><div class="cs-screen-icon">📍</div><div class="cs-screen-num">10.</div><div class="cs-screen-name">Order Tracking</div></div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- KEY FEATURES -->
+      <div class="cs-section-label">Features</div>
+      <div class="cs-section-title">Key Features Designed</div>
+
+      <div class="cs-feature-card">
+        <div class="cs-feature-icon">📱</div>
+        <div><div class="cs-feature-name">OTP Phone Login</div><div class="cs-feature-desc">Frictionless authentication with phone number + 6-digit OTP. No passwords needed.</div></div>
+      </div>
+      <div class="cs-feature-card">
+        <div class="cs-feature-icon">📍</div>
+        <div><div class="cs-feature-name">Location-Based Discovery</div><div class="cs-feature-desc">Restaurants filtered by locality (Madipakkam, Chennai) with estimated delivery time.</div></div>
+      </div>
+      <div class="cs-feature-card">
+        <div class="cs-feature-icon">📁</div>
+        <div><div class="cs-feature-name">Category Filtering</div><div class="cs-feature-desc">Menu items organised by Chaat, Snacks, Drinks for quick browsing.</div></div>
+      </div>
+      <div class="cs-feature-card">
+        <div class="cs-feature-icon">🛒</div>
+        <div><div class="cs-feature-name">Smart Cart</div><div class="cs-feature-desc">Add/remove items with real-time subtotal, delivery fee, and tax calculation.</div></div>
+      </div>
+      <div class="cs-feature-card">
+        <div class="cs-feature-icon">💳</div>
+        <div><div class="cs-feature-name">UPI-First Payments</div><div class="cs-feature-desc">UPI, debit/credit card, and wallet options. Orange payment processing screen for trust.</div></div>
+      </div>
+      <div class="cs-feature-card">
+        <div class="cs-feature-icon">🗺️</div>
+        <div><div class="cs-feature-name">Real-Time Tracking</div><div class="cs-feature-desc">Live order tracking with delivery partner name, photo, and contact number.</div></div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- DESIGN DECISIONS -->
+      <div class="cs-section-label">Design Decisions</div>
+      <div class="cs-section-title">Why These Choices?</div>
+      <p class="cs-text">Every design decision was intentional and rooted in understanding Indian mobile users.</p>
+
+      <div class="cs-decision-card">
+        <div class="cs-feature-icon">🎨</div>
+        <div><div class="cs-feature-name">Orange brand color (#F47C30)</div><div class="cs-feature-desc">Warm, energetic, and food-associated. It creates appetite appeal while maintaining strong visual hierarchy across all screens.</div></div>
+      </div>
+      <div class="cs-decision-card">
+        <div class="cs-feature-icon">🔐</div>
+        <div><div class="cs-feature-name">OTP-only login</div><div class="cs-feature-desc">Indian users are highly phone-number-centric. Eliminating username/password reduces drop-off and speeds up the onboarding flow to under 30 seconds.</div></div>
+      </div>
+      <div class="cs-decision-card">
+        <div class="cs-feature-icon">💰</div>
+        <div><div class="cs-feature-name">Transparent pricing</div><div class="cs-feature-desc">Showing delivery fee (₹30) and tax (5%) separately in the cart builds trust and reduces checkout abandonment — a pain point in Indian e-commerce.</div></div>
+      </div>
+      <div class="cs-decision-card">
+        <div class="cs-feature-icon">📊</div>
+        <div><div class="cs-feature-name">Full-screen orange payment state</div><div class="cs-feature-desc">Replaces anxiety with a confident, brand-consistent loading experience during the critical payment processing moment.</div></div>
+      </div>
+      <div class="cs-decision-card">
+        <div class="cs-feature-icon">🟢</div>
+        <div><div class="cs-feature-name">Green confirmation screen</div><div class="cs-feature-desc">Universal signal of success. The color shift from orange to green creates a satisfying emotional moment at order confirmation.</div></div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- WHAT I LEARNED -->
+      <div class="cs-section-label">Outcome</div>
+      <div class="cs-section-title">What I Learned</div>
+      <p class="cs-text">Building QuickBite end-to-end gave me deep insights into designing for India's mobile-first, price-sensitive, and trust-cautious users.</p>
+
+      <div class="cs-learning-card">
+        <div class="cs-learning-num">01</div>
+        <div><div class="cs-feature-name">Simplicity beats completeness.</div><div class="cs-feature-desc">Indian street food users want speed — less browsing, more ordering. Every extra tap is a drop-off risk.</div></div>
+      </div>
+      <div class="cs-learning-card">
+        <div class="cs-learning-num">02</div>
+        <div><div class="cs-feature-name">Trust signals matter at every step.</div><div class="cs-feature-desc">Showing ratings, reviews, delivery times, and fee breakdowns upfront dramatically improves conversion in price-conscious markets.</div></div>
+      </div>
+      <div class="cs-learning-card">
+        <div class="cs-learning-num">03</div>
+        <div><div class="cs-feature-name">Emotional design drives delight.</div><div class="cs-feature-desc">The confirmation screen's green color and the delivery partner card create connection moments that build brand loyalty.</div></div>
+      </div>
+      <div class="cs-learning-card">
+        <div class="cs-learning-num">04</div>
+        <div><div class="cs-feature-name">Hyper-local is a feature, not a limitation.</div><div class="cs-feature-desc">Showing neighbourhood and familiar local restaurants creates immediate relevance and trust.</div></div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cs-cta-box">
+        <div class="cs-cta-title">Explore the full prototype</div>
+        <div class="cs-cta-desc">Click through the interactive Wireframe Figma prototype or try the HTML demo.</div>
+        <div class="cs-cta-btns">
+          <a href="https://www.figma.com/proto/unI0TYBQzz9tSszpfoR0zB/Quickbite?node-id=1-3&p=f&t=rzXt6wUTir9FmhM0-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A3&show-proto-sidebar=1" class="cs-btn cs-btn-orange">Figma - Wireframe</a>
+          <a href="https://drive.google.com/file/d/1-9oQ8FViUOgw0_4lalWtaefZFwabUCVq/view?usp=drive_link" class="cs-btn cs-btn-orange">▶ Interactive Demo</a>
+        </div>
+      </div>
+
+    </div><!-- /cs-body -->
+  </div><!-- /cs-modal -->
+</div><!-- /cs-overlay -->
+
+<script>
+  // Intersection observer for subtle fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.section-heading, .numbered-item, .skill-card, .portfolio-card, .exp-item, .contact-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+
+  // Prevent body scroll when modal is open
+  const modal = document.getElementById('qbModal');
+  const observer2 = new MutationObserver(() => {
+    document.body.style.overflow = modal.classList.contains('open') ? 'hidden' : '';
+  });
+  observer2.observe(modal, { attributes: true, attributeFilter: ['class'] });
+</script>
+</body>
+</html>
